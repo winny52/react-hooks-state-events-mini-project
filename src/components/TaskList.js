@@ -1,9 +1,21 @@
 import React from "react";
+import Task from "./Task"
 
-function TaskList() {
+function TaskList({taskData, dataInState}) {
+  
+  function deleteTask(idNo){
+    const data = taskData.filter((item, index) => {
+     return index !== Number(idNo);
+    })
+      dataInState(data)
+  }
+
+  const taskComponent = taskData.map((task, index) => {
+         return <Task id={index} key={index} cat={task.category} text={task.text} onChange={deleteTask}/>
+  })
   return (
     <div className="tasks">
-      {/* display a list of tasks using Task component */}
+      {taskComponent}
     </div>
   );
 }
